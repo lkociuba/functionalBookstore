@@ -8,7 +8,8 @@
 This is an e-commerce website to sell books. I used Java for domain layer, Thymeleaf for frontend and Spring Boot. 
 To connect to Database I used JPA. I tried to use Hexagonal architecture with DDD.
 
-What to implement functions:
+
+What functions to implement
 
 For Customers:
 1. The can register an account. Log in and log out.
