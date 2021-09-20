@@ -41,7 +41,7 @@ Project is created with:
 * Spring Boot version: 2.5.4
 	
 ## Setup
-To run this project, install it locally using npm:
+To run this project:
 
 ```
 $ git clone https://github.com/lkociuba/functionalBookstore.git
