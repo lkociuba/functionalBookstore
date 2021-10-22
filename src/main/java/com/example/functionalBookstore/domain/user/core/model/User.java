@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-class User implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue

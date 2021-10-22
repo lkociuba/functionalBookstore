@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-class Role implements Serializable {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue
