@@ -1,6 +1,8 @@
 package com.example.functionalBookstore.domain.user.core.model;
 
+import lombok.Builder;
 
+@Builder
 public class AddUserCommand {
 
     private String firstName;
