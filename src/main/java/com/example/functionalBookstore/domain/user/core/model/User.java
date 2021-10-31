@@ -1,8 +1,11 @@
 package com.example.functionalBookstore.domain.user.core.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,7 +21,8 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    private String email;
+    @Embedded
+    private EmailAddress email;
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -33,8 +37,7 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String firstName, String lastName, String email, String password, Set<Role> roles) {
-        super();
+    public User(String firstName, String lastName, EmailAddress email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -44,10 +47,6 @@ public class User implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -66,11 +65,11 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    public EmailAddress getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(EmailAddress email) {
         this.email = email;
     }
 
@@ -88,5 +87,18 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

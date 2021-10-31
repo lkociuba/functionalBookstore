@@ -1,6 +1,7 @@
 package com.example.functionalBookstore.domain.user.core;
 
 import com.example.functionalBookstore.domain.user.core.model.AddUserCommand;
+import com.example.functionalBookstore.domain.user.core.model.EmailAddress;
 import com.example.functionalBookstore.domain.user.core.model.Role;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.AddNewUser;
@@ -20,7 +21,7 @@ public class UserService implements AddNewUser {
         User user = new User(
                 addUserCommand.getFirstName(),
                 addUserCommand.getLastName(),
-                addUserCommand.getEmail(),
+                new EmailAddress(addUserCommand.getEmail()),
                 addUserCommand.getPassword(),
                 new HashSet<Role>(Arrays.asList(new Role("ROLE_USER")))
         );

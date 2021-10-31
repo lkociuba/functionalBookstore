@@ -1,6 +1,7 @@
 package com.example.functionalBookstore.domain.user.core;
 
 import com.example.functionalBookstore.domain.user.core.model.AddUserCommand;
+import com.example.functionalBookstore.domain.user.core.model.EmailAddress;
 import com.example.functionalBookstore.domain.user.core.model.Role;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
@@ -35,7 +36,7 @@ class UserServiceTest {
         User user = new User(
                 "John",
                 "Wick",
-                "john@email.com",
+                new EmailAddress("john@email.com"),
                 "password",
                 new HashSet<Role>(List.of(new Role("ROLE_USER")))
         );
