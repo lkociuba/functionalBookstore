@@ -7,6 +7,7 @@ import com.example.functionalBookstore.domain.user.infrastructure.UserDatabaseAd
 import com.example.functionalBookstore.domain.user.infrastructure.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class UserDomainConfig {
@@ -17,7 +18,7 @@ public class UserDomainConfig {
     }
 
     @Bean
-    public AddNewUser addNewUser(UserDatabase userDatabase){
-        return new UserService(userDatabase);
+    public AddNewUser addNewUser(UserDatabase userDatabase, BCryptPasswordEncoder passwordEncoder){
+        return new UserService(userDatabase,passwordEncoder);
     }
 }
