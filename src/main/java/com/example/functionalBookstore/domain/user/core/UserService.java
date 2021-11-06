@@ -25,7 +25,7 @@ public class UserService implements AddNewUser {
         User user = new User(
                 addUserCommand.getFirstName(),
                 addUserCommand.getLastName(),
-                new EmailAddress(addUserCommand.getEmail()),
+                addUserCommand.getEmail(),
                 passwordEncoder.encode(addUserCommand.getPassword()),
                 new HashSet<Role>(List.of(new Role("ROLE_USER")))
         );

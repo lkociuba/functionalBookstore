@@ -21,8 +21,7 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @Embedded
-    private EmailAddress email;
+    private String email;
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -37,7 +36,7 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String firstName, String lastName, EmailAddress email, String password, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -65,11 +64,11 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public EmailAddress getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(EmailAddress email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
