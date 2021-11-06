@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FunctionalBookstoreApplicationController {
 
     @GetMapping("/functionalBookstore")
-    public String showWelcomePage(){
+    public String showWelcomePage() {
         return "welcomePage";
     }
 }

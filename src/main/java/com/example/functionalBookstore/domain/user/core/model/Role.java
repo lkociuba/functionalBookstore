@@ -20,7 +20,8 @@ public class Role implements Serializable {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
-    public Role(){}
+    public Role() {
+    }
 
     public Role(String name) {
         super();

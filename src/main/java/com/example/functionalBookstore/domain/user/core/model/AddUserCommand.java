@@ -10,7 +10,8 @@ public class AddUserCommand {
     private String email;
     private String password;
 
-    public AddUserCommand(){}
+    public AddUserCommand() {
+    }
 
     public AddUserCommand(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;

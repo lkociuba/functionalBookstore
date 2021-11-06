@@ -13,12 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserDomainConfig {
 
     @Bean
-    public UserDatabase userDatabase(UserRepository userRepository){
+    public UserDatabase userDatabase(UserRepository userRepository) {
         return new UserDatabaseAdapter(userRepository);
     }
 
     @Bean
-    public AddNewUser addNewUser(UserDatabase userDatabase, BCryptPasswordEncoder passwordEncoder){
-        return new UserService(userDatabase,passwordEncoder);
+    public AddNewUser addNewUser(UserDatabase userDatabase, BCryptPasswordEncoder passwordEncoder) {
+        return new UserService(userDatabase, passwordEncoder);
     }
 }

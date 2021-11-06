@@ -17,7 +17,7 @@ public class UserCommandController {
     private final AddNewUser addNewUser;
 
     @ModelAttribute("user")
-    public AddUserCommand addUserCommand(){
+    public AddUserCommand addUserCommand() {
         return new AddUserCommand();
     }
 
@@ -31,5 +31,4 @@ public class UserCommandController {
         addNewUser.save(addUserCommand);
         return "redirect:/registration?success";
     }
-
 }
