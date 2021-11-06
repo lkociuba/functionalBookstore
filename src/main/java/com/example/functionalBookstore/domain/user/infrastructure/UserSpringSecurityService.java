@@ -23,12 +23,11 @@ public class UserSpringSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDatabase.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        User user = userDatabase.findByEmail(username)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {

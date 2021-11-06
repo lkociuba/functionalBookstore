@@ -3,6 +3,9 @@ package com.example.functionalBookstore.domain.user.infrastructure;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class UserDatabaseAdapter implements UserDatabase {
@@ -15,7 +18,12 @@ public class UserDatabaseAdapter implements UserDatabase {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        try {
+            return Optional.ofNullable(
+                    userRepository.findByEmail(email));
+        } catch (DataAccessException exception) {
+            return Optional.empty();
+        }
     }
 }

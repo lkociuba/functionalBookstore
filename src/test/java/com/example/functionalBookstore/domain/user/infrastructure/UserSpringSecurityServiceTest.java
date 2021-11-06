@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,7 +40,7 @@ class UserSpringSecurityServiceTest {
                 new HashSet<Role>(List.of(new Role("ROLE_USER")))
         );
 
-        given(userDatabaseMock.findByEmail(Mockito.anyString())).willReturn(user);
+        given(userDatabaseMock.findByEmail(Mockito.anyString())).willReturn(Optional.of(user));
 
         //when
         UserDetails loadedUser = securityService.loadUserByUsername(Mockito.anyString());
