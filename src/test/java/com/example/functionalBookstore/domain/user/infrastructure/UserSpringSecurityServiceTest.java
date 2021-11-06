@@ -59,7 +59,7 @@ class UserSpringSecurityServiceTest {
     }
 
     @Test
-    void shouldSecurityLoginThrowExceptionFronnNullEmail() {
+    void shouldSecurityLoginThrowExceptionFromNullEmail() {
         assertThrows(Exception.class, () ->
                 securityService.loadUserByUsername(null));
     }

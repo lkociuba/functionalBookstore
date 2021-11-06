@@ -1,7 +1,6 @@
 package com.example.functionalBookstore.domain.user.core;
 
 import com.example.functionalBookstore.domain.user.core.model.AddUserCommand;
-import com.example.functionalBookstore.domain.user.core.model.EmailAddress;
 import com.example.functionalBookstore.domain.user.core.model.Role;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.AddNewUser;
@@ -9,7 +8,6 @@ import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserData
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
