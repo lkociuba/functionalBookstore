@@ -1,4 +1,4 @@
-package com.example.functionalBookstore.application;
+package com.example.functionalBookstore.domain.user.application;
 
 import com.example.functionalBookstore.domain.user.infrastructure.UserSpringSecurityService;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = FunctionalBookstoreApplicationController.class)
-class FunctionalBookstoreApplicationControllerTest {
+@WebMvcTest(controllers = SecurityController.class)
+class SecurityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -23,7 +23,7 @@ class FunctionalBookstoreApplicationControllerTest {
     private UserSpringSecurityService securityService;
 
     @Test
-    void shouldShowWelcomePage() throws Exception {
-        mockMvc.perform(get("/")).andExpect(status().isOk());
+    void shouldShowLoginPage() throws Exception {
+        mockMvc.perform(get("/login")).andExpect(status().isOk());
     }
 }
