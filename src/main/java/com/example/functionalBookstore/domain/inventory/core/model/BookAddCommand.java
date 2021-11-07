@@ -1,38 +1,20 @@
 package com.example.functionalBookstore.domain.inventory.core.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
-@Entity
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "book_id")
-    private Long bookId;
+public class BookAddCommand {
 
     private String name;
     private String description;
     private BigDecimal price;
 
-    @CreationTimestamp
-    private LocalDateTime createdTime;
-
-    public Book() {
+    public BookAddCommand() {
     }
 
-    public Book(String name, String description, BigDecimal price, LocalDateTime createdTime) {
+    public BookAddCommand(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.createdTime = createdTime;
-    }
-
-    public Long getBookId() {
-        return bookId;
     }
 
     public String getName() {
@@ -57,13 +39,5 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
     }
 }
