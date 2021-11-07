@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
 
@@ -11,8 +12,10 @@
 
         <nav>
             <ul>
-                <li><a href="/functionalBookstore">Home</a></li>
-`                <li><a href="/registration">Registration</a> </li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </div>

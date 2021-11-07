@@ -7,10 +7,16 @@ INSERT INTO ROLE (id, name)
 values (2002, 'ROLE_EMPLOYEE');
 INSERT INTO ROLE (id, name)
 values (2003, 'ROLE_MANAGER');
+INSERT INTO ROLE (id, name)
+values (2004, 'ROLE_USER');
 
 INSERT INTO USERS_ROLES (user_id, role_id)
 values (1002, 2002);
 INSERT INTO USERS_ROLES (user_id, role_id)
+values (1002, 2004);
+INSERT INTO USERS_ROLES (user_id, role_id)
 values (1003, 2002);
 INSERT INTO USERS_ROLES (user_id, role_id)
 values (1003, 2003);
+INSERT INTO USERS_ROLES (user_id, role_id)
+values (1003, 2004);
