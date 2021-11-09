@@ -24,11 +24,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(String name, String description, BigDecimal price, LocalDateTime createdTime) {
+    public Book(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.createdTime = createdTime;
     }
 
     public Long getBookId() {

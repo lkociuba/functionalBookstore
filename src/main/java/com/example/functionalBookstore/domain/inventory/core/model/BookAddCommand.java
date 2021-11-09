@@ -1,7 +1,10 @@
 package com.example.functionalBookstore.domain.inventory.core.model;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
+@Builder
 public class BookAddCommand {
 
     private String name;
