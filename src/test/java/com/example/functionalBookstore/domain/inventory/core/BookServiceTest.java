@@ -2,6 +2,7 @@ package com.example.functionalBookstore.domain.inventory.core;
 
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.model.BookAddCommand;
+import com.example.functionalBookstore.domain.inventory.core.ports.outgoing.BookDatabase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,7 +34,7 @@ class BookServiceTest {
                 "A lot of usefull maps",
                 new BigDecimal(56));
 
-        given(bookDatabaseMock.save(Mockito.any(BookAddCommand.class))).willReturn(book);
+        given(bookDatabaseMock.save(Mockito.any(Book.class))).willReturn(book);
 
         //when
         Book result = bookService.save(new BookAddCommand());
