@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,13 +33,13 @@ public class BookListController {
 
         var pageSize = 5;
 
-        Page<Book> page = bookDatabase.getBooksPaginatedAndSorted(
+        Optional<Page<Book>> page = bookDatabase.getBooksPaginatedAndSorted(
                 pageNumber, pageSize, sortField, sortDirection);
-        List<Book> bookList = page.getContent();
+        List<Book> bookList = page.get().getContent();
 
         model.addAttribute("currentPage", pageNumber);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("totalPages", page.get().getTotalPages());
+        model.addAttribute("totalItems", page.get().getTotalElements());
 
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
