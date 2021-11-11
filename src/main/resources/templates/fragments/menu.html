@@ -13,9 +13,11 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/paginatedBookList">Books</a></li>
                 <li><a href="/registration">Registration</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/logout">Logout</a></li>
+                <li><a sec:authorize="hasRole('EMPLOYEE')" href="/addBook">Add new book</a></li>
             </ul>
         </nav>
     </div>
