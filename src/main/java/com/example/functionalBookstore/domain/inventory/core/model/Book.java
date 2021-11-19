@@ -1,5 +1,6 @@
 package com.example.functionalBookstore.domain.inventory.core.model;
 
+import com.example.functionalBookstore.domain.cart.core.model.CartItem;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class Book {
 
     @CreationTimestamp
     private LocalDateTime createdTime;
+
+    @OneToOne(mappedBy = "book")
+    private CartItem cartItem;
 
     public Book() {
     }
