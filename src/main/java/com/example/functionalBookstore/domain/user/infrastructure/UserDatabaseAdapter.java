@@ -4,6 +4,8 @@ import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -25,5 +27,17 @@ public class UserDatabaseAdapter implements UserDatabase {
         } catch (DataAccessException exception) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public String getLoggedUserEmail() {
+        var principal = SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+
+        return principal.toString();
     }
 }

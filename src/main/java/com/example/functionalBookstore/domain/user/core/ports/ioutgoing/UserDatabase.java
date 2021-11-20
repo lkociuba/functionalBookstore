@@ -8,4 +8,6 @@ public interface UserDatabase {
     User save(User user);
 
     Optional<User> findByEmail(String email);
+
+    String getLoggedUserEmail();
 }
