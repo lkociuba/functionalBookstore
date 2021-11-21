@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,7 +41,7 @@ class UserServiceTest {
                 "Wick",
                 "john@email.com",
                 "password",
-                new HashSet<Role>(List.of(new Role("ROLE_USER")))
+                new HashSet<>(List.of(new Role("ROLE_USER")))
         );
 
         AddUserCommand addUserCommand = AddUserCommand.builder()
@@ -62,6 +63,55 @@ class UserServiceTest {
     @Test
     void shouldThrowExceptionFromNullAddUserCommand() {
         assertThrows(NullPointerException.class, () ->
-            userService.save(null));
+                userService.save(null));
+    }
+
+    @Test
+    void shouldGetLoggedUser() {
+        //given
+        User user = new User(
+                "John",
+                "Wick",
+                "john@email.com",
+                "password",
+                new HashSet<>(List.of(new Role("ROLE_USER")))
+        );
+
+        given(userDatabaseMock.getLoggedUserEmail()).willReturn("manager@email");
+
+        given(userDatabaseMock.findByEmail("manager@email")).willReturn(Optional.of(user));
+
+        //when
+        Optional<User> result = userService.getLoggedUser();
+
+        //then
+        assertThat(result, is(Optional.of(user)));
+    }
+
+    @Test
+    void shouldGetEmptyOptionalFromNullLoggedUserEmail() {
+        //given
+        given(userDatabaseMock.getLoggedUserEmail()).willReturn(null);
+
+        //when
+        Optional<User> result = userService.getLoggedUser();
+
+        //then
+        assertThat(result, is(Optional.empty()));
+    }
+
+    @Test
+    void name() {
+        //given
+        given(userDatabaseMock.getLoggedUserEmail()).willReturn("manager@email");
+
+        given(userDatabaseMock.findByEmail("manager@email")).willReturn(Optional.empty());
+
+        //when
+        Optional<User> result = userService.getLoggedUser();
+
+        //then
+        assertThat(result, is(Optional.empty()));
+
     }
 }
