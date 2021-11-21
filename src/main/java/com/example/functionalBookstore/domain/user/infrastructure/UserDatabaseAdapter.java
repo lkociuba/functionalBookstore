@@ -1,7 +1,7 @@
 package com.example.functionalBookstore.domain.user.infrastructure;
 
 import com.example.functionalBookstore.domain.user.core.model.User;
-import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
+import com.example.functionalBookstore.domain.user.core.ports.outgoing.UserDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;

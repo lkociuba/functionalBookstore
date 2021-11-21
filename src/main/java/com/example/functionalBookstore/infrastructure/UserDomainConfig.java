@@ -2,7 +2,7 @@ package com.example.functionalBookstore.infrastructure;
 
 import com.example.functionalBookstore.domain.user.core.UserService;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.AddNewUser;
-import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
+import com.example.functionalBookstore.domain.user.core.ports.outgoing.UserDatabase;
 import com.example.functionalBookstore.domain.user.infrastructure.UserDatabaseAdapter;
 import com.example.functionalBookstore.domain.user.infrastructure.UserRepository;
 import org.springframework.context.annotation.Bean;

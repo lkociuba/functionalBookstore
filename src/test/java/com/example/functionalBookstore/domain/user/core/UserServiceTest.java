@@ -3,7 +3,7 @@ package com.example.functionalBookstore.domain.user.core;
 import com.example.functionalBookstore.domain.user.core.model.AddUserCommand;
 import com.example.functionalBookstore.domain.user.core.model.Role;
 import com.example.functionalBookstore.domain.user.core.model.User;
-import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
+import com.example.functionalBookstore.domain.user.core.ports.outgoing.UserDatabase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

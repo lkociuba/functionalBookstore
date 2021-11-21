@@ -5,7 +5,7 @@ import com.example.functionalBookstore.domain.user.core.model.Role;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.AddNewUser;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
-import com.example.functionalBookstore.domain.user.core.ports.ioutgoing.UserDatabase;
+import com.example.functionalBookstore.domain.user.core.ports.outgoing.UserDatabase;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
