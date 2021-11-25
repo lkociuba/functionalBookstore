@@ -39,7 +39,7 @@ class CartItemDatabaseAdapterTest {
         given(cartItemRepoMock.findByUserId(Mockito.anyLong())).willReturn(cartItemList);
 
         //when
-        Optional<List<CartItem>> result = cartItemDatabaseAdapter.getLoggedUserCartItems(1L);
+        Optional<List<CartItem>> result = cartItemDatabaseAdapter.findCartItemsByUser(1L);
 
         //then
         assertThat(result, is(Optional.of(cartItemList)));
@@ -51,7 +51,7 @@ class CartItemDatabaseAdapterTest {
         given(cartItemRepoMock.findByUserId(Mockito.anyLong())).willReturn(null);
 
         //when
-        Optional<List<CartItem>> result = cartItemDatabaseAdapter.getLoggedUserCartItems(1L);
+        Optional<List<CartItem>> result = cartItemDatabaseAdapter.findCartItemsByUser(1L);
 
         //then
         assertThat(result, is(Optional.empty()));
@@ -63,6 +63,6 @@ class CartItemDatabaseAdapterTest {
         given(cartItemRepoMock.findByUserId(Mockito.anyLong())).willReturn(null);
 
         assertThrows(Exception.class, () ->
-                cartItemDatabaseAdapter.getLoggedUserCartItems(null));
+                cartItemDatabaseAdapter.findCartItemsByUser(null));
     }
 }

@@ -14,7 +14,7 @@ public class CartItemDatabaseAdapter implements CartItemDatabase {
     private final CartItemRepository cartItemRepository;
 
     @Override
-    public Optional<List<CartItem>> getLoggedUserCartItems(Long loggedUserId) {
+    public Optional<List<CartItem>> findCartItemsByUser(Long loggedUserId) {
         try {
             return Optional.ofNullable(
                     cartItemRepository.findByUserId(loggedUserId));
