@@ -6,9 +6,8 @@ import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemD
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CartService implements GetLoggedUserCartItems {
@@ -19,7 +18,7 @@ public class CartService implements GetLoggedUserCartItems {
 
     @Override
     public List<CartItem> handle() {
-        var loggedUserId = getLoggedUser.getLoggedUser().get().getId();
-        return cartItemDatabase.findCartItemsByUser(loggedUserId).get();
+        var loggedUserId = getLoggedUser.getLoggedUser().getId();
+        return cartItemDatabase.findCartItemsByUser(loggedUserId).orElseGet(ArrayList::new);
     }
 }

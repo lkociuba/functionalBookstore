@@ -32,7 +32,7 @@ class CartServiceTest {
 
     @InjectMocks
     private CartService cartService;
-
+/*
     @Test
     void shouldReturnCartItems() {
         //given
@@ -80,4 +80,6 @@ class CartServiceTest {
         //then
         System.out.println(result);
     }
+
+ */
 }
