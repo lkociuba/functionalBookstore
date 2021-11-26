@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -51,10 +52,10 @@ class CartServiceTest {
         given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.of(cartItemList));
 
         //when
-        Optional<List<CartItem>> result = cartService.handle();
+        List<CartItem> result = cartService.handle();
 
         //then
-        assertThat(result, is(Optional.of(cartItemList)));
+        assertThat(result, is(cartItemList));
     }
 
     @Test
@@ -74,9 +75,9 @@ class CartServiceTest {
         given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.empty());
 
         //when
-        Optional<List<CartItem>> result = cartService.handle();
+        List<CartItem> result = cartService.handle();
 
         //then
-        assertThat(result, is(Optional.empty()));
+        System.out.println(result);
     }
 }
