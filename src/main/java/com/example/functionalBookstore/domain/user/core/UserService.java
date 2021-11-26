@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 public class UserService implements AddNewUser, GetLoggedUser {
@@ -33,8 +32,8 @@ public class UserService implements AddNewUser, GetLoggedUser {
     }
 
     @Override
-    public Optional<User> getLoggedUser() {
+    public User getLoggedUser() {
         var loggedUserEmail = userDatabase.getLoggedUserEmail();
-        return userDatabase.findByEmail(loggedUserEmail);
+        return userDatabase.findByEmail(loggedUserEmail).orElseThrow();
     }
 }

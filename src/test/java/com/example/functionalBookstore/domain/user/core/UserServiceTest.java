@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -82,36 +83,31 @@ class UserServiceTest {
         given(userDatabaseMock.findByEmail("manager@email")).willReturn(Optional.of(user));
 
         //when
-        Optional<User> result = userService.getLoggedUser();
+        User result = userService.getLoggedUser();
 
         //then
-        assertThat(result, is(Optional.of(user)));
+        assertThat(result, is(user));
     }
 
     @Test
-    void shouldGetEmptyOptionalFromNullLoggedUserEmail() {
+    void shouldThrowExceptionFromNullLoggedUserEmail() {
         //given
         given(userDatabaseMock.getLoggedUserEmail()).willReturn(null);
 
-        //when
-        Optional<User> result = userService.getLoggedUser();
-
         //then
-        assertThat(result, is(Optional.empty()));
+        assertThrows(NoSuchElementException.class, () ->
+                userService.getLoggedUser());
     }
 
     @Test
-    void name() {
+    void shouldThrowExceptionFromEmptyOptional() {
         //given
         given(userDatabaseMock.getLoggedUserEmail()).willReturn("manager@email");
 
         given(userDatabaseMock.findByEmail("manager@email")).willReturn(Optional.empty());
 
-        //when
-        Optional<User> result = userService.getLoggedUser();
-
         //then
-        assertThat(result, is(Optional.empty()));
-
+        assertThrows(NoSuchElementException.class, () ->
+                userService.getLoggedUser());
     }
 }
