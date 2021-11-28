@@ -34,18 +34,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
-                        "/**",
                         "/registration/**",
                         "/paginatedBookList/**",
                         "/js/**",
                         "/css/**",
                         "/img/**",
                         "/images/**").permitAll()
-                .antMatchers("/cart/**",
+                .antMatchers(
+                        "/shoppingCart/**",
                         "/cartSummary/**",
                         "/customerInfoAdd/**",
                         "/orderFinalize/**").access("hasRole('USER')")
-                .antMatchers("/bookList/**",
+                .antMatchers(
+                        "/bookList/**",
                         "/bookAdd/**").access("hasRole('EMPLOYEE')")
                 .anyRequest().authenticated()
                 .and()
