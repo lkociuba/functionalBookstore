@@ -23,30 +23,32 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem {
 
     @Override
     public List<CartItem> getLoggedUserCartItems() {
-        return cartItemDatabase.findCartItemsByUser(getLoggedUserId())
+        var loggedUserId = getLoggedUser.getLoggedUser().getId();
+        return cartItemDatabase.findCartItemsByUser(loggedUserId)
                 .orElseGet(ArrayList::new);
     }
 
     @Override
     public void addCartItem(Long bookId) {
-        User user = getLoggedUser.getLoggedUser();
-
+/*
         //check if any CartItem contain book from bookId
-            //function interface - using getLoggedUser
+        //function interface - using getLoggedUser
         List<CartItem> cartItems = getLoggedUserCartItems();
         CartItem cartItem = new CartItem();
-        for (CartItem item : cartItems){
-            if (item.getBook().getBookId().equals(bookId)){
+        for (CartItem item : cartItems) {
+            if (item.getBook().getBookId().equals(bookId)) {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
             } else {
-            //    cartItem = this.createNewCartItem;
+                cartItem = this.createNewCartItem;
             }
         }
-        //cartItemDatabase.save(cartItem);
+        cartItemDatabase.save(cartItem);
 
+ */
     }
 
-    private Long getLoggedUserId() {
-        return getLoggedUser.getLoggedUser().getId();
+    private void createNewCartItem(Long bookId) {
+        User user = getLoggedUser.getLoggedUser();
+
     }
 }

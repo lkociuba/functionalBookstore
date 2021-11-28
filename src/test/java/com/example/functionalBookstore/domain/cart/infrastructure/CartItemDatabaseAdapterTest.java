@@ -65,4 +65,18 @@ class CartItemDatabaseAdapterTest {
         assertThrows(Exception.class, () ->
                 cartItemDatabaseAdapter.findCartItemsByUser(null));
     }
+
+    @Test
+    void shouldReturnSavedCartItemAfterAddNewToDatabase() {
+        //given
+        CartItem cartItem = new CartItem(new Book(), 1);
+
+        given(cartItemRepoMock.save(Mockito.any(CartItem.class))).willReturn(cartItem);
+
+        //when
+        CartItem result = cartItemDatabaseAdapter.save(new CartItem());
+
+        //then
+        assertThat(result, is(cartItem));
+    }
 }
