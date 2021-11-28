@@ -14,7 +14,7 @@ public class CartController {
 
     @GetMapping("/shoppingCart")
     public String showCart(ModelMap model){
-        model.addAttribute("cart", getLoggedUserCartItems.handle());
+        model.addAttribute("cart", getLoggedUserCartItems.getLoggedUserCartItems());
         return "cart";
     }
 

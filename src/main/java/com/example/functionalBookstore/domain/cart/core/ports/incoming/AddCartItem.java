@@ -1,5 +1,5 @@
 package com.example.functionalBookstore.domain.cart.core.ports.incoming;
 
 public interface AddCartItem {
-    void handle(Long bookId);
+    void addCartItem(Long bookId);
 }

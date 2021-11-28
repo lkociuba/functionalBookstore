@@ -18,13 +18,13 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem {
     private final GetLoggedUser getLoggedUser;
 
     @Override
-    public List<CartItem> handle() {
+    public List<CartItem> getLoggedUserCartItems() {
         return cartItemDatabase.findCartItemsByUser(getLoggedUserId())
                 .orElseGet(ArrayList::new);
     }
 
     @Override
-    public void handle(Long bookId) {
+    public void addCartItem(Long bookId) {
 
     }
 
