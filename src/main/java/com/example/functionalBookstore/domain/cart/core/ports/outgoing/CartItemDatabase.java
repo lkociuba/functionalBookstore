@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CartItemDatabase {
     Optional<List<CartItem>> findCartItemsByUser(Long loggedUserId);
+
+    CartItem save(CartItem cartItem);
 }

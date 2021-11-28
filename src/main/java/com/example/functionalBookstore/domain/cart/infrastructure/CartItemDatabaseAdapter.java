@@ -22,4 +22,9 @@ public class CartItemDatabaseAdapter implements CartItemDatabase {
             return Optional.empty();
         }
     }
+
+    @Override
+    public CartItem save(CartItem cartItem) {
+        return cartItemRepository.save(cartItem);
+    }
 }
