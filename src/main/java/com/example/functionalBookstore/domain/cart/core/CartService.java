@@ -1,6 +1,7 @@
 package com.example.functionalBookstore.domain.cart.core;
 
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
+import com.example.functionalBookstore.domain.cart.core.ports.incoming.AddCartItem;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CartService implements GetLoggedUserCartItems {
+public class CartService implements GetLoggedUserCartItems, AddCartItem {
 
     private final CartItemDatabase cartItemDatabase;
 
@@ -18,7 +19,16 @@ public class CartService implements GetLoggedUserCartItems {
 
     @Override
     public List<CartItem> handle() {
-        var loggedUserId = getLoggedUser.getLoggedUser().getId();
-        return cartItemDatabase.findCartItemsByUser(loggedUserId).orElseGet(ArrayList::new);
+        return cartItemDatabase.findCartItemsByUser(getLoggedUserId())
+                .orElseGet(ArrayList::new);
+    }
+
+    @Override
+    public void handle(Long bookId) {
+
+    }
+
+    private Long getLoggedUserId() {
+        return getLoggedUser.getLoggedUser().getId();
     }
 }
