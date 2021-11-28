@@ -10,4 +10,6 @@ public interface BookDatabase {
 
     Optional<Page<Book>> getBooksPaginatedAndSorted(
             int pageNumber, int pageSize, String sortField, String sortDirection);
+
+    Optional<Book> findBookById(Long bookId);
 }
