@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,4 +54,29 @@ class BookDatabaseAdapterTest {
         assertThat(result, is(Optional.empty()));
     }
 
+    @Test
+    void shouldReturnBookFromBookId() {
+        //given
+        Book book = new Book(
+                "Geographical Atlas",
+                "A lot of useful maps",
+                new BigDecimal(56)
+        );
+
+        given(bookRepositoryMock.findById(anyLong())).willReturn(Optional.of(book));
+
+        //when
+        Optional<Book> result = bookDatabaseAdapter.findBookById(1L);
+
+        //then
+        assertThat(result, is(Optional.of(book)));
+    }
+
+    @Test
+    void shouldReturnEmptyOptionalFromNoDatabaseConnection() {
+        //when
+        Optional<Book> result = bookDatabaseAdapter.findBookById(1L);
+
+        assertThat(result, is(Optional.empty()));
+    }
 }

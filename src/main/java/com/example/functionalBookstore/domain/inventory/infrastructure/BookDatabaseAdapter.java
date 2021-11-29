@@ -37,4 +37,13 @@ public class BookDatabaseAdapter implements BookDatabase {
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<Book> findBookById(Long bookId) {
+        try {
+            return bookRepository.findById(bookId);
+        } catch (DataAccessException exception) {
+            return Optional.empty();
+        }
+    }
 }
