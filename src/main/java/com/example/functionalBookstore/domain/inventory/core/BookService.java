@@ -3,11 +3,14 @@ package com.example.functionalBookstore.domain.inventory.core;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.model.BookAddCommand;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.AddNewBook;
+import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
 import com.example.functionalBookstore.domain.inventory.core.ports.outgoing.BookDatabase;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
-public class BookService implements AddNewBook {
+public class BookService implements AddNewBook, GetBookById {
 
     private final BookDatabase bookDatabase;
 
@@ -19,5 +22,10 @@ public class BookService implements AddNewBook {
                 bookAddCommand.getPrice()
         );
         return bookDatabase.save(book);
+    }
+
+    @Override
+    public Optional<Book> getBookById(Long bookId) {
+        return bookDatabase.findBookById(bookId);
     }
 }

@@ -2,6 +2,8 @@ package com.example.functionalBookstore.domain.inventory.core.ports.incoming;
 
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 
+import java.util.Optional;
+
 public interface GetBookById {
-    Book getBookById(Long bookId);
+    Optional<Book> getBookById(Long bookId);
 }
