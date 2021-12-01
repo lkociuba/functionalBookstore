@@ -25,9 +25,10 @@ public class CartItem {
     public CartItem() {
     }
 
-    public CartItem(Book book, int quantity) {
+    public CartItem(Book book, int quantity, User user) {
         this.book = book;
         this.quantity = quantity;
+        this.user = user;
     }
 
     public long getId() {

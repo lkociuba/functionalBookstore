@@ -2,6 +2,7 @@ package com.example.functionalBookstore.domain.cart.infrastructure;
 
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
+import com.example.functionalBookstore.domain.user.core.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,9 +32,10 @@ class CartItemDatabaseAdapterTest {
         //given
         Book book1 = new Book();
         Book book2 = new Book();
+        User user = new User();
         List<CartItem> cartItemList = List.of(
-                new CartItem(book1, 1),
-                new CartItem(book2, 2)
+                new CartItem(book1, 1, user),
+                new CartItem(book2, 2, user)
         );
 
         given(cartItemRepoMock.findByUserId(Mockito.anyLong())).willReturn(cartItemList);
@@ -69,7 +71,7 @@ class CartItemDatabaseAdapterTest {
     @Test
     void shouldReturnSavedCartItemAfterAddNewToDatabase() {
         //given
-        CartItem cartItem = new CartItem(new Book(), 1);
+        CartItem cartItem = new CartItem(new Book(), 1, new User());
 
         given(cartItemRepoMock.save(Mockito.any(CartItem.class))).willReturn(cartItem);
 
