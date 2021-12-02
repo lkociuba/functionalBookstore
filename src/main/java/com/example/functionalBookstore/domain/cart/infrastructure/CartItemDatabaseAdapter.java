@@ -36,4 +36,9 @@ public class CartItemDatabaseAdapter implements CartItemDatabase {
             return Optional.empty();
         }
     }
+
+    @Override
+    public void deleteById(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
 }

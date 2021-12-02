@@ -11,4 +11,6 @@ public interface CartItemDatabase {
     CartItem save(CartItem cartItem);
 
     Optional<CartItem> findCartItemById(Long cartItemId);
+
+    void deleteById(Long cartItemId);
 }
