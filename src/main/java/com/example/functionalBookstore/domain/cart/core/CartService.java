@@ -39,7 +39,7 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteC
     public void deleteCartItem(Long cartItemId) {
         if (cartItemId != null) {
             cartItemDatabase.deleteById(cartItemId);
-        } throw new NullPointerException();
+        } else throw new NullPointerException();
     }
 
     private CartItem checkIfCartItemExistAndReturnCartItemToSave(Book book) {

@@ -118,10 +118,4 @@ class CartItemDatabaseAdapterTest {
         //then
         verify(cartItemRepoMock, times(1)).deleteById(anyLong());
     }
-
-    @Test
-    void shouldThrowExceptionFromNullCartItemId() {
-        assertThrows(NullPointerException.class, () ->
-                cartItemDatabaseAdapter.deleteById(null));
-    }
 }
