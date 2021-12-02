@@ -30,11 +30,11 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem {
     @Override
     public void addCartItem(Long bookId) {
         Book book = getBookById.getBookById(bookId).get();
-        CartItem cartItem = checkIfCartItemExist(book);
+        CartItem cartItem = checkIfCartItemExistAndReturnCartItemToSave(book);
         cartItemDatabase.save(cartItem);
     }
 
-    private CartItem checkIfCartItemExist(Book book) {
+    private CartItem checkIfCartItemExistAndReturnCartItemToSave(Book book) {
         if (book.getCartItem() != null) {
             return this.increaseExistingCartItemQuantity(book);
         } else {
