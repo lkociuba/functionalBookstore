@@ -20,7 +20,6 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteC
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
     private final GetBookById getBookById;
-    private final DeleteCartItem deleteCartItem;
 
     @Override
     public List<CartItem> getLoggedUserCartItems() {

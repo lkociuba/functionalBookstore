@@ -15,14 +15,21 @@ import org.springframework.context.annotation.Configuration;
 public class CartDomainConfiguration {
 
     @Bean
-    public CartItemDatabase cartItemDatabase (CartItemRepository cartItemRepository){
+    public CartItemDatabase cartItemDatabase(CartItemRepository cartItemRepository) {
         return new CartItemDatabaseAdapter(cartItemRepository);
     }
 
     @Bean
-    public GetLoggedUserCartItems getLoggedUserCartItems (
+    public GetLoggedUserCartItems getLoggedUserCartItems(
             CartItemDatabase cartItemDatabase, GetLoggedUser getLoggedUser,
-            GetBookById getBookById, DeleteCartItem deleteCartItem) {
-        return new CartService(cartItemDatabase, getLoggedUser, getBookById, deleteCartItem);
+            GetBookById getBookById) {
+        return new CartService(cartItemDatabase, getLoggedUser, getBookById);
+    }
+
+    @Bean
+    public DeleteCartItem deleteCartItem(
+            CartItemDatabase cartItemDatabase, GetLoggedUser getLoggedUser,
+            GetBookById getBookById) {
+        return new CartService(cartItemDatabase, getLoggedUser, getBookById);
     }
 }
