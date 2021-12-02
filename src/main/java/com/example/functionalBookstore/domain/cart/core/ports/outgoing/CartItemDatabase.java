@@ -9,4 +9,6 @@ public interface CartItemDatabase {
     Optional<List<CartItem>> findCartItemsByUser(Long loggedUserId);
 
     CartItem save(CartItem cartItem);
+
+    Optional<CartItem> findCartItemById(Long cartItemId);
 }

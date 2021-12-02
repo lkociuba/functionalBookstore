@@ -2,6 +2,7 @@ package com.example.functionalBookstore.domain.cart.core;
 
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.AddCartItem;
+import com.example.functionalBookstore.domain.cart.core.ports.incoming.DeleteCartItem;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
@@ -14,11 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CartService implements GetLoggedUserCartItems, AddCartItem {
+public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteCartItem {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
     private final GetBookById getBookById;
+    private final DeleteCartItem deleteCartItem;
 
     @Override
     public List<CartItem> getLoggedUserCartItems() {
@@ -32,6 +34,11 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem {
         Book book = getBookById.getBookById(bookId).get();
         CartItem cartItem = checkIfCartItemExistAndReturnCartItemToSave(book);
         cartItemDatabase.save(cartItem);
+    }
+
+    @Override
+    public void deleteCartItem(Long cartItemId) {
+
     }
 
     private CartItem checkIfCartItemExistAndReturnCartItemToSave(Book book) {

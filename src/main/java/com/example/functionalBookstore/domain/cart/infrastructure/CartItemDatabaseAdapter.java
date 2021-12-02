@@ -27,4 +27,13 @@ public class CartItemDatabaseAdapter implements CartItemDatabase {
     public CartItem save(CartItem cartItem) {
         return cartItemRepository.save(cartItem);
     }
+
+    @Override
+    public Optional<CartItem> findCartItemById(Long cartItemId) {
+        try {
+            return cartItemRepository.findById(cartItemId);
+        } catch (DataAccessException exception) {
+            return Optional.empty();
+        }
+    }
 }
