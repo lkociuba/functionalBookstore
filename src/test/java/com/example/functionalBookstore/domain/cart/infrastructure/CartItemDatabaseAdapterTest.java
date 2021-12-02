@@ -16,6 +16,7 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -80,5 +81,30 @@ class CartItemDatabaseAdapterTest {
 
         //then
         assertThat(result, is(cartItem));
+    }
+
+    @Test
+    void shouldReturnCartItemFromCartItemId() {
+        //given
+        CartItem cartItem = new CartItem();
+        given(cartItemRepoMock.findById(anyLong())).willReturn(Optional.of(cartItem));
+
+        //when
+        Optional<CartItem> result = cartItemDatabaseAdapter.findCartItemById(anyLong());
+
+        //then
+        assertThat(result, is(Optional.of(cartItem)));
+    }
+
+    @Test
+    void shouldReturnEmptyOptionalFromNoCartItemInDatabase() {
+        //given
+        given(cartItemRepoMock.findById(anyLong())).willReturn(Optional.empty());
+
+        //when
+        Optional<CartItem> result = cartItemDatabaseAdapter.findCartItemById(anyLong());
+
+        //then
+        assertThat( result, is(Optional.empty()));
     }
 }
