@@ -39,6 +39,8 @@ public class CartItemDatabaseAdapter implements CartItemDatabase {
 
     @Override
     public void deleteById(Long cartItemId) {
-        cartItemRepository.deleteById(cartItemId);
+        if (cartItemId != null) {
+            cartItemRepository.deleteById(cartItemId);
+        } else throw new NullPointerException();
     }
 }

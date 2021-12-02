@@ -18,6 +18,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CartItemDatabaseAdapterTest {
@@ -106,5 +108,20 @@ class CartItemDatabaseAdapterTest {
 
         //then
         assertThat( result, is(Optional.empty()));
+    }
+
+    @Test
+    void shouldDeleteCartItem() {
+        //when
+        cartItemDatabaseAdapter.deleteById(anyLong());
+
+        //then
+        verify(cartItemRepoMock, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldThrowExceptionFromNullCartItemId() {
+        assertThrows(NullPointerException.class, () ->
+                cartItemDatabaseAdapter.deleteById(null));
     }
 }
