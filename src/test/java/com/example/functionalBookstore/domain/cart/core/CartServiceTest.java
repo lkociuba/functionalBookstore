@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -105,5 +106,20 @@ class CartServiceTest {
 
         //then
         verify(cartItemDatabaseMock, times(1)).save(any(CartItem.class));
+    }
+
+    @Test
+    void shouldDeleteCartItemFromCartItemId() {
+        //when
+        cartService.deleteCartItem(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionFromNullCartItemId() {
+        assertThrows(NullPointerException.class, () ->
+                cartService.deleteCartItem(null));
     }
 }
