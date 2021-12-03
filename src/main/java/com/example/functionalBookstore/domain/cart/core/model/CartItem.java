@@ -58,4 +58,8 @@ public class CartItem {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public double getCalculatedCartItemPrice() {
+        return this.quantity * this.book.getPrice().doubleValue();
+    }
 }

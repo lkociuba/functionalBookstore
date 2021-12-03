@@ -27,7 +27,7 @@
                     <th></th>
                     <th>Name</th>
                     <th>Price</th>
-                    <td>Quantity -</td>
+                    <th>Quantity -</th>
                     <th>Quantity</th>
                     <th>Quantity +</th>
                     <th>Amount</th>
@@ -39,6 +39,7 @@
                            th:width="20">Delete</a>
                     </td>
                     <td th:text="${cartItem.book.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
                     <td>
                         <a class="btn btn-info"
                            th:href="@{'decreaseCartItemQuantity/' + ${cartItem.Id}}"
@@ -50,16 +51,17 @@
                            th:href="@{'increaseCartItemQuantity/' + ${cartItem.Id}}"
                            th:width="20">+</a>
                     </td>
-                    <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
+                    <td th:text="${#numbers.formatDecimal(cartItem.calculatedCartItemPrice,1,2,'COMMA')}"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">Sum</td>
                     <td th:text="${#numbers.formatDecimal(calculatedPrice,1,2,'COMMA')}"></td>
                 </tr>
-                    <td>
-                        <div class="form-group">
-                            <a href="/paginatedBookList">Continue shopping</a>
-                            <br>
-                            <a href="/customerInfo">Add Customer Info</a>
-                        </div>
-                    </td>
+                <div class="form-group">
+                    <a href="/paginatedBookList">Continue shopping</a>
+                    <br>
+                    <a href="/customerInfo">Add Customer Info</a>
+                </div>
             </table>
         </div>
     </div>
