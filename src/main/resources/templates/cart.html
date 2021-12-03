@@ -26,14 +26,18 @@
                 <tr>
                     <th></th>
                     <th>Name</th>
+                    <th>Price</th>
                     <th>Quantity</th>
+                    <th>Amount</th>
                 </tr>
                 <tr th:each="cartItem  :  ${cart}">
                     <td th:text="${cartItem.book.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
                     <td th:text="${cartItem.quantity}"></td>
+                    <td th:text="${#numbers.formatDecimal(calculatedPrice,1,2,'COMMA')}"></td>
                     <td>
                         <div class="form-group">
-                            <a href="/paginatedBookList">Continue shoping</a>
+                            <a href="/paginatedBookList">Continue shopping</a>
                             <br>
                             <a href="/customerInfo">Add Customer Info</a>
                         </div>
