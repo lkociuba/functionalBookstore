@@ -27,7 +27,9 @@
                     <th></th>
                     <th>Name</th>
                     <th>Price</th>
+                    <td>Quantity -</td>
                     <th>Quantity</th>
+                    <th>Quantity +</th>
                     <th>Amount</th>
                 </tr>
                 <tr th:each="cartItem  :  ${cart}">
@@ -37,7 +39,17 @@
                            th:width="20">Delete</a>
                     </td>
                     <td th:text="${cartItem.book.name}"></td>
+                    <td>
+                        <a class="btn btn-info"
+                           th:href="@{'decreaseCartItemQuantity/' + ${cartItem.Id}}"
+                           th:width="20">-</a>
+                    </td>
                     <td th:text="${cartItem.quantity}"></td>
+                    <td>
+                        <a class="btn btn-info"
+                           th:href="@{'increaseCartItemQuantity/' + ${cartItem.Id}}"
+                           th:width="20">+</a>
+                    </td>
                     <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
                     <td th:text="${#numbers.formatDecimal(calculatedPrice,1,2,'COMMA')}"></td>
                 </tr>

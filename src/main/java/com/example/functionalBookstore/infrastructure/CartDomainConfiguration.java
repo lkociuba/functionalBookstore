@@ -25,11 +25,4 @@ public class CartDomainConfiguration {
             GetBookById getBookById) {
         return new CartService(cartItemDatabase, getLoggedUser, getBookById);
     }
-
-    @Bean
-    public DeleteCartItem deleteCartItem(
-            CartItemDatabase cartItemDatabase, GetLoggedUser getLoggedUser,
-            GetBookById getBookById) {
-        return new CartService(cartItemDatabase, getLoggedUser, getBookById);
-    }
 }

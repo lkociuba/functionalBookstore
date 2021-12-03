@@ -1,9 +1,6 @@
 package com.example.functionalBookstore.domain.cart.application;
 
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.AddCartItem;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.CalculateCartItemPrice;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.DeleteCartItem;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
+import com.example.functionalBookstore.domain.cart.core.ports.incoming.*;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +18,8 @@ public class CartController {
     private final GetLoggedUser getLoggedUser;
     private final AddCartItem addCartItem;
     private final DeleteCartItem deleteCartItem;
+    private final DecreaseCartItemQuantity decreaseCartItemQuantity;
+    private final IncreaseCartItemQuantity increaseCartItemQuantity;
 
     @GetMapping("/shoppingCart")
     public String showCart(ModelMap model) {
@@ -50,6 +49,18 @@ public class CartController {
     @GetMapping("/deleteCartItem/{cartItemId}")
     public String deleteCartItemFromShoppingCart(@PathVariable(value = "cartItemId") Long cartItemId, ModelMap modelMap) {
         deleteCartItem.deleteCartItem(cartItemId);
+        return "redirect:/shoppingCart";
+    }
+
+    @GetMapping("/decreaseCartItemQuantity/{cartItemId}")
+    public String decreaseCartItemQuantity(@PathVariable(value = "cartItemId") Long cartItemId, ModelMap model) {
+        decreaseCartItemQuantity.decreaseCartItemQuantity(cartItemId);
+        return "redirect:/shoppingCart";
+    }
+
+    @GetMapping("increaseCartItemQuantity/{cartItemId}")
+    public String increaseCartItemQuantity(@PathVariable(value = "cartItemId") Long cartItemId, ModelMap model) {
+        increaseCartItemQuantity.increaseCartItemQuantity(cartItemId);
         return "redirect:/shoppingCart";
     }
 }
