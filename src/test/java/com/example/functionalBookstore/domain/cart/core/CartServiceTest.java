@@ -59,14 +59,14 @@ class CartServiceTest {
         );
         user.setId(1L);
 
-        cartItem = new CartItem(book, 1, user);
-        cartItemList = List.of(cartItem, cartItem);
-
         book = new Book(
                 "Geographical Atlas",
                 "A lot of usefull maps",
                 new BigDecimal(56)
         );
+
+        cartItem = new CartItem(book, 1, user);
+        cartItemList = List.of(cartItem, cartItem);
     }
 
     @Test
@@ -196,5 +196,50 @@ class CartServiceTest {
 
         //then
         verify(cartItemDatabaseMock, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldReturn112InCalculatePriceFrom2BooksPrice56() {
+        //given
+        given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.ofNullable(cartItemList));
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+
+        //when
+        var result = cartService.calculatePrice();
+
+        //then
+        assertThat(result, is(112.0));
+    }
+
+    @Test
+    void shouldReturn0InCalculatePriceFrom10BooksPrice0() {
+        //given
+        Book book = new Book("New Book", "Description", BigDecimal.valueOf(0));
+        CartItem testCartItem = new CartItem(book, 10, user);
+        List<CartItem> testCartItemList = List.of(testCartItem);
+
+        given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.of(testCartItemList));
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+
+        //when
+        var result = cartService.calculatePrice();
+
+        //then
+        assertThat(result, is(0.0));
+    }
+
+    @Test
+    void shouldReturn0InCalculatePriceFromEmptyCartItemList() {
+        //given
+        List<CartItem> testCartItemList = new ArrayList<>();
+
+        given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.of(testCartItemList));
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+
+        //when
+        var result = cartService.calculatePrice();
+
+        //then
+        assertThat(result, is(0.0));
     }
 }

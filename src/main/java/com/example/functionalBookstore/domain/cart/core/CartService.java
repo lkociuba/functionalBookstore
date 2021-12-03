@@ -9,14 +9,17 @@ import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 public class CartService implements
-        GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity, DecreaseCartItemQuantity {
+        GetLoggedUserCartItems, AddCartItem, DeleteCartItem,
+        IncreaseCartItemQuantity, DecreaseCartItemQuantity, CalculateCartItemPrice {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
@@ -68,9 +71,22 @@ public class CartService implements
         }
     }
 
+    @Override
+    public double calculatePrice() {
+        double calculatedPrice = 0;
+        List<CartItem> cartItemList = this.getLoggedUserCartItems();
+
+        for (CartItem item : cartItemList) {
+            calculatedPrice +=
+                    item.getQuantity() * transformPriceToDouble.apply(item.getBook().getPrice());
+        }
+        return calculatedPrice;
+    }
+
     private final Predicate<Long> isIdValueNotNull = Objects::nonNull;
     private final Predicate<Integer> isQuantityEqualOrLowerThan1 =
             quantity -> quantity <= 1;
+    private final Function<BigDecimal, Double> transformPriceToDouble = BigDecimal::doubleValue;
 
     private CartItem checkIfCartItemExistAndReturnCartItemToSave(Book book) {
         if (book.getCartItem() != null) {
@@ -81,13 +97,13 @@ public class CartService implements
     }
 
     private CartItem increaseExistingCartItemQuantityFromBook(Book book) {
-        CartItem cartItem = book.getCartItem();
+        var cartItem = book.getCartItem();
         cartItem.setQuantity(cartItem.getQuantity() + 1);
         return cartItem;
     }
 
     private CartItem createNewCartItem(Book book) {
-        User user = getLoggedUser.getLoggedUser();
+        var user = getLoggedUser.getLoggedUser();
         return new CartItem(
                 book, 1, user);
     }
