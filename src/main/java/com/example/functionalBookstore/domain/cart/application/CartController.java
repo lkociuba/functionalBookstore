@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CartController {
 
     private final GetLoggedUserCartItems getLoggedUserCartItems;
-    private final CalculateCartItemPrice calculateCartItemPrice;
+    private final GetCartFinalAmount getCartFinalAmount;
     private final GetLoggedUser getLoggedUser;
     private final AddCartItem addCartItem;
     private final DeleteCartItem deleteCartItem;
@@ -24,7 +24,7 @@ public class CartController {
     @GetMapping("/shoppingCart")
     public String showCart(ModelMap model) {
         model.addAttribute("cart", getLoggedUserCartItems.getLoggedUserCartItems());
-        model.addAttribute("calculatedPrice", calculateCartItemPrice.calculatePrice());
+        model.addAttribute("calculatedPrice", getCartFinalAmount.calculateCartFinalAmount());
         return "cart";
     }
 

@@ -205,7 +205,7 @@ class CartServiceTest {
         given(getLoggedUserMock.getLoggedUser()).willReturn(user);
 
         //when
-        var result = cartService.calculatePrice();
+        var result = cartService.calculateCartFinalAmount();
 
         //then
         assertThat(result, is(112.0));
@@ -222,7 +222,7 @@ class CartServiceTest {
         given(getLoggedUserMock.getLoggedUser()).willReturn(user);
 
         //when
-        var result = cartService.calculatePrice();
+        var result = cartService.calculateCartFinalAmount();
 
         //then
         assertThat(result, is(0.0));
@@ -237,7 +237,7 @@ class CartServiceTest {
         given(getLoggedUserMock.getLoggedUser()).willReturn(user);
 
         //when
-        var result = cartService.calculatePrice();
+        var result = cartService.calculateCartFinalAmount();
 
         //then
         assertThat(result, is(0.0));

@@ -5,7 +5,6 @@ import com.example.functionalBookstore.domain.cart.core.ports.incoming.*;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
-import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,7 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class CartService implements
         GetLoggedUserCartItems, AddCartItem, DeleteCartItem,
-        IncreaseCartItemQuantity, DecreaseCartItemQuantity, CalculateCartItemPrice {
+        IncreaseCartItemQuantity, DecreaseCartItemQuantity, GetCartFinalAmount {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
@@ -72,7 +71,7 @@ public class CartService implements
     }
 
     @Override
-    public double calculatePrice() {
+    public double calculateCartFinalAmount() {
         double calculatedPrice = 0;
         List<CartItem> cartItemList = this.getLoggedUserCartItems();
 
