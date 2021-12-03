@@ -1,10 +1,7 @@
 package com.example.functionalBookstore.domain.cart.core;
 
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.AddCartItem;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.DeleteCartItem;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.IncreaseCartItemQuantity;
+import com.example.functionalBookstore.domain.cart.core.ports.incoming.*;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
@@ -18,7 +15,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 @RequiredArgsConstructor
-public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity {
+public class CartService implements
+        GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity, DecreaseCartItemQuantity {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
@@ -56,7 +54,23 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteC
         } else throw new NullPointerException();
     }
 
+
+    @Override
+    public void decreaseCartItemQuantity(Long cartItemId) {
+        if (isIdValueNotNull.test(cartItemId)) {
+            CartItem cartItem = cartItemDatabase.findCartItemById(cartItemId).orElseThrow();
+            if (isQuantityEqualOrLowerThan1.test(cartItem.getQuantity())){
+                this.deleteCartItem(cartItemId);
+            } else {
+                cartItem.setQuantity(cartItem.getQuantity() - 1);
+                cartItemDatabase.save(cartItem);
+            }
+        }
+    }
+
     private final Predicate<Long> isIdValueNotNull = Objects::nonNull;
+    private final Predicate<Integer> isQuantityEqualOrLowerThan1 =
+            quantity -> quantity <= 1;
 
     private CartItem checkIfCartItemExistAndReturnCartItemToSave(Book book) {
         if (book.getCartItem() != null) {

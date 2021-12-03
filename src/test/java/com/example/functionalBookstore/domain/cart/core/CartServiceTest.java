@@ -26,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CartServiceTest {
@@ -60,7 +59,7 @@ class CartServiceTest {
         );
         user.setId(1L);
 
-        cartItem = new CartItem();
+        cartItem = new CartItem(book, 1, user);
         cartItemList = List.of(cartItem, cartItem);
 
         book = new Book(
@@ -146,5 +145,56 @@ class CartServiceTest {
     void shouldThrowNullPointerExceptionFromNullCartItemInIncreaseCartItemQuantity() {
         assertThrows(NullPointerException.class, () ->
                 cartService.increaseCartItemQuantity(null));
+    }
+
+    @Test
+    void shouldDeleteCartItemInDecreaseCartItemQuantityFromCartItemQuantityLoverThan2() {
+        //given
+        given(cartItemDatabaseMock.findCartItemById(anyLong())).willReturn(Optional.ofNullable(cartItem));
+
+        //when
+        cartService.decreaseCartItemQuantity(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldDecreaseCartItemQuantityInDecreaseCartItemQuantityFromCartItemQuantityBiggerThan1() {
+        //given
+        CartItem cartItemWithQuantity2 = new CartItem(book, 2, user);
+        given(cartItemDatabaseMock.findCartItemById(anyLong())).willReturn(Optional.of(cartItemWithQuantity2));
+
+        //when
+        cartService.decreaseCartItemQuantity(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).save(any(CartItem.class));
+    }
+
+    @Test
+    void shouldDeleteCartItemInDecreaseCartItemQuantityFromCartItemQuantityEqual0() {
+        //given
+        CartItem cartItemWithQuantity0 = new CartItem(book, 0, user);
+        given(cartItemDatabaseMock.findCartItemById(anyLong())).willReturn(Optional.ofNullable(cartItem));
+
+        //when
+        cartService.decreaseCartItemQuantity(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldDeleteCartItemInDecreaseCartItemQuantityFromCartItemQuantityEqualMinus1() {
+        //given
+        CartItem cartItemWithQuantity0 = new CartItem(book, -1, user);
+        given(cartItemDatabaseMock.findCartItemById(anyLong())).willReturn(Optional.ofNullable(cartItem));
+
+        //when
+        cartService.decreaseCartItemQuantity(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).deleteById(anyLong());
     }
 }
