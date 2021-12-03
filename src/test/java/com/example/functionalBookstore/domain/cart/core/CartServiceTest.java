@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -199,7 +200,7 @@ class CartServiceTest {
     }
 
     @Test
-    void shouldReturn112InCalculatePriceFrom2BooksPrice56() {
+    void shouldReturn112InCalculateCartFinalAmountFrom2BooksPrice56() {
         //given
         given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.ofNullable(cartItemList));
         given(getLoggedUserMock.getLoggedUser()).willReturn(user);
@@ -212,7 +213,7 @@ class CartServiceTest {
     }
 
     @Test
-    void shouldReturn0InCalculatePriceFrom10BooksPrice0() {
+    void shouldReturn0InCalculateCartFinalAmountFrom10BooksPrice0() {
         //given
         Book book = new Book("New Book", "Description", BigDecimal.valueOf(0));
         CartItem testCartItem = new CartItem(book, 10, user);
@@ -229,7 +230,7 @@ class CartServiceTest {
     }
 
     @Test
-    void shouldReturn0InCalculatePriceFromEmptyCartItemList() {
+    void shouldReturn0InCalculateCartFinalAmountFromEmptyCartItemList() {
         //given
         List<CartItem> testCartItemList = new ArrayList<>();
 

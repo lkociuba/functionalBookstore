@@ -1,6 +1,7 @@
 package com.example.functionalBookstore.domain.cart.application;
 
 import com.example.functionalBookstore.domain.cart.core.CartService;
+import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import com.example.functionalBookstore.domain.user.infrastructure.UserSpringSecurityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,9 @@ class CartControllerTest {
 
     @MockBean
     private CartService cartService;
+
+    @MockBean
+    private GetLoggedUser getLoggedUser;
 
     @MockBean
     private UserSpringSecurityService securityService;

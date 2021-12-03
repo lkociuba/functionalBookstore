@@ -61,7 +61,7 @@ public class CartService implements
     public void decreaseCartItemQuantity(Long cartItemId) {
         if (isIdValueNotNull.test(cartItemId)) {
             CartItem cartItem = cartItemDatabase.findCartItemById(cartItemId).orElseThrow();
-            if (isQuantityEqualOrLowerThan1.test(cartItem.getQuantity())){
+            if (isQuantityEqualOrLowerThan1.test(cartItem.getQuantity())) {
                 this.deleteCartItem(cartItemId);
             } else {
                 cartItem.setQuantity(cartItem.getQuantity() - 1);
@@ -72,14 +72,9 @@ public class CartService implements
 
     @Override
     public double calculateCartFinalAmount() {
-        double calculatedPrice = 0;
-        List<CartItem> cartItemList = this.getLoggedUserCartItems();
-
-        for (CartItem item : cartItemList) {
-            calculatedPrice +=
-                    item.getQuantity() * transformPriceToDouble.apply(item.getBook().getPrice());
-        }
-        return calculatedPrice;
+        return this.getLoggedUserCartItems().stream()
+                .mapToDouble(item -> item.getQuantity() * transformPriceToDouble.apply(item.getBook().getPrice()))
+                .sum();
     }
 
     private final Predicate<Long> isIdValueNotNull = Objects::nonNull;
