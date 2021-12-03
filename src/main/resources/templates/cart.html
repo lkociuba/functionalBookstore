@@ -31,16 +31,23 @@
                     <th>Amount</th>
                 </tr>
                 <tr th:each="cartItem  :  ${cart}">
+                    <td>
+                        <a class="btn btn-warning"
+                           th:href="@{'deleteCartItem/' + ${cartItem.Id}}"
+                           th:width="20">Delete</a>
+                    </td>
                     <td th:text="${cartItem.book.name}"></td>
-                    <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
                     <td th:text="${cartItem.quantity}"></td>
+                    <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
                     <td th:text="${#numbers.formatDecimal(calculatedPrice,1,2,'COMMA')}"></td>
+                </tr>
                     <td>
                         <div class="form-group">
                             <a href="/paginatedBookList">Continue shopping</a>
                             <br>
                             <a href="/customerInfo">Add Customer Info</a>
                         </div>
+                    </td>
             </table>
         </div>
     </div>
