@@ -33,9 +33,11 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteC
 
     @Override
     public void addCartItem(Long bookId) {
-        Book book = getBookById.getBookById(bookId).get();
-        CartItem cartItem = checkIfCartItemExistAndReturnCartItemToSave(book);
-        cartItemDatabase.save(cartItem);
+        if (isIdValueNotNull.test(bookId)) {
+            Book book = getBookById.getBookById(bookId).orElseThrow();
+            CartItem cartItem = checkIfCartItemExistAndReturnCartItemToSave(book);
+            cartItemDatabase.save(cartItem);
+        } else throw new NullPointerException();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class CartService implements GetLoggedUserCartItems, AddCartItem, DeleteC
     @Override
     public void increaseCartItemQuantity(Long cartItemId) {
         if (isIdValueNotNull.test(cartItemId)) {
-            CartItem cartItem = cartItemDatabase.findCartItemById(cartItemId).get();
+            CartItem cartItem = cartItemDatabase.findCartItemById(cartItemId).orElseThrow();
             cartItem.setQuantity(cartItem.getQuantity() + 1);
             cartItemDatabase.save(cartItem);
         } else throw new NullPointerException();

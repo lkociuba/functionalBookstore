@@ -110,6 +110,12 @@ class CartServiceTest {
     }
 
     @Test
+    void shouldThrowNullPointerExceptionInSaveMethodFromNullCartItemId() {
+        assertThrows(NullPointerException.class, () ->
+                cartService.addCartItem(null));
+    }
+
+    @Test
     void shouldDeleteCartItemFromCartItemId() {
         //when
         cartService.deleteCartItem(anyLong());
