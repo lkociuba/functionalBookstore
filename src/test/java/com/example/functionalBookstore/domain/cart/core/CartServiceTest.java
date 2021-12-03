@@ -45,6 +45,7 @@ class CartServiceTest {
     private CartService cartService;
 
     private User user;
+    private CartItem cartItem;
     private List<CartItem> cartItemList;
     private Book book;
 
@@ -59,7 +60,7 @@ class CartServiceTest {
         );
         user.setId(1L);
 
-        CartItem cartItem = new CartItem();
+        cartItem = new CartItem();
         cartItemList = List.of(cartItem, cartItem);
 
         book = new Book(
@@ -121,5 +122,23 @@ class CartServiceTest {
     void shouldThrowNullPointerExceptionFromNullCartItemId() {
         assertThrows(NullPointerException.class, () ->
                 cartService.deleteCartItem(null));
+    }
+
+    @Test
+    void shouldIncreaseCartItemQuantityFromCartItemId() {
+        //given
+        given(cartItemDatabaseMock.findCartItemById(anyLong())).willReturn(Optional.ofNullable(cartItem));
+
+        //when
+        cartService.increaseCartItemQuantity(anyLong());
+
+        //then
+        verify(cartItemDatabaseMock, times(1)).save(any(CartItem.class));
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionFromNullCartItemInIncreaseCartItemQuantity() {
+        assertThrows(NullPointerException.class, () ->
+                cartService.increaseCartItemQuantity(null));
     }
 }
