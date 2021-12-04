@@ -1,10 +1,12 @@
 package com.example.functionalBookstore.domain.cart.core;
 
+import com.example.functionalBookstore.domain.cart.core.model.AddCustomerInfoCommand;
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.*;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
+import com.example.functionalBookstore.domain.user.core.model.User;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
@@ -17,8 +19,8 @@ import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 public class CartService implements
-        GetLoggedUserCartItems, AddCartItem, DeleteCartItem,
-        IncreaseCartItemQuantity, DecreaseCartItemQuantity, GetCartFinalAmount {
+        GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity,
+        DecreaseCartItemQuantity, GetCartFinalAmount, AddCustomerInfo {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
@@ -75,6 +77,12 @@ public class CartService implements
         return this.getLoggedUserCartItems().stream()
                 .mapToDouble(item -> item.getQuantity() * transformPriceToDouble.apply(item.getBook().getPrice()))
                 .sum();
+    }
+
+    @Override
+    public void saveCustomerInfo(AddCustomerInfoCommand addCustomerInfoCommand) {
+        User user = getLoggedUser.getLoggedUser();
+
     }
 
     private final Predicate<Long> isIdValueNotNull = Objects::nonNull;
