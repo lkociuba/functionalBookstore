@@ -10,7 +10,7 @@ public class CustomerInfoDatabaseAdapter implements CustomerInfoDatabase {
     private final CustomerInfoRepository customerInfoRepository;
 
     @Override
-    public void save(CustomerInfo customerInfo) {
-        customerInfoRepository.save(customerInfo);
+    public CustomerInfo save(CustomerInfo customerInfo) {
+        return customerInfoRepository.save(customerInfo);
     }
 }

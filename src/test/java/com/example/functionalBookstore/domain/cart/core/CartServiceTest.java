@@ -1,7 +1,10 @@
 package com.example.functionalBookstore.domain.cart.core;
 
+import com.example.functionalBookstore.domain.cart.core.model.AddCustomerInfoCommand;
 import com.example.functionalBookstore.domain.cart.core.model.CartItem;
+import com.example.functionalBookstore.domain.cart.core.model.CustomerInfo;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
+import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CustomerInfoDatabase;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
 import com.example.functionalBookstore.domain.user.core.model.Role;
@@ -23,7 +26,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -40,6 +43,9 @@ class CartServiceTest {
 
     @Mock
     private GetBookById getBookByIdMock;
+
+    @Mock
+    private CustomerInfoDatabase customerInfoDatabaseMock;
 
     @InjectMocks
     private CartService cartService;
@@ -242,5 +248,30 @@ class CartServiceTest {
 
         //then
         assertThat(result, is(0.0));
+    }
+
+    @Test
+    void shouldReturnSavedCustomerInfo() {
+        //given
+        var addCustomerInfoCommand = new AddCustomerInfoCommand(
+                "Customer name",
+                "Customer Address",
+                "customerPhone"
+        );
+        var customerInfo = new CustomerInfo(
+                user,
+                addCustomerInfoCommand.getCustomerName(),
+                addCustomerInfoCommand.getCustomerAddress(),
+                user.getEmail(),
+                addCustomerInfoCommand.getCustomerPhone()
+        );
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+        given(customerInfoDatabaseMock.save(any(CustomerInfo.class))).willReturn(customerInfo);
+
+        //when
+        CustomerInfo result = cartService.saveCustomerInfo(addCustomerInfoCommand);
+
+        //then
+        assertThat(result, is(customerInfo));
     }
 }

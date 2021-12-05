@@ -1,9 +1,9 @@
 package com.example.functionalBookstore.infrastructure;
 
 import com.example.functionalBookstore.domain.cart.core.CartService;
-import com.example.functionalBookstore.domain.cart.core.ports.incoming.DeleteCartItem;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
 import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CartItemDatabase;
+import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CustomerInfoDatabase;
 import com.example.functionalBookstore.domain.cart.infrastructure.CartItemDatabaseAdapter;
 import com.example.functionalBookstore.domain.cart.infrastructure.CartItemRepository;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
@@ -22,7 +22,7 @@ public class CartDomainConfiguration {
     @Bean
     public GetLoggedUserCartItems getLoggedUserCartItems(
             CartItemDatabase cartItemDatabase, GetLoggedUser getLoggedUser,
-            GetBookById getBookById) {
-        return new CartService(cartItemDatabase, getLoggedUser, getBookById);
+            GetBookById getBookById, CustomerInfoDatabase customerInfoDatabase) {
+        return new CartService(cartItemDatabase, getLoggedUser, getBookById, customerInfoDatabase);
     }
 }
