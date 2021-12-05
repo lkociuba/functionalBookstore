@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public class CartService implements
         GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity,
-        DecreaseCartItemQuantity, GetCartFinalAmount, AddCustomerInfo {
+        DecreaseCartItemQuantity, GetCartFinalAmount, AddCustomerInfo, GetCustomerInfo {
 
     private final CartItemDatabase cartItemDatabase;
     private final GetLoggedUser getLoggedUser;
@@ -92,6 +92,12 @@ public class CartService implements
                 command.getCustomerPhone()
         );
         return customerInfoDatabase.save(customerInfo);
+    }
+
+    @Override
+    public CustomerInfo getCustomerInfo() {
+            var userId = getLoggedUser.getLoggedUser().getId();
+        return customerInfoDatabase.findCustomerInfoByUser(userId).orElseThrow();
     }
 
     private final Predicate<Long> isIdValueNotNull = Objects::nonNull;

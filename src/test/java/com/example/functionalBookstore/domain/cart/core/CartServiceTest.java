@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -273,5 +272,25 @@ class CartServiceTest {
 
         //then
         assertThat(result, is(customerInfo));
+    }
+
+    @Test
+    void shouldReturnCustomerInfoInGetCustomerInfo() {
+        //given
+        var customerInfo = new CustomerInfo();
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+        given(customerInfoDatabaseMock.findCustomerInfoByUser(anyLong())).willReturn(Optional.of(customerInfo));
+
+        //when
+        CustomerInfo result = cartService.getCustomerInfo();
+
+        //then
+        assertThat(result, is(customerInfo));
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionInGetCustomerInfoFromNullUser() {
+        assertThrows(NullPointerException.class, () ->
+                cartService.getCustomerInfo());
     }
 }
