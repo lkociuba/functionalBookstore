@@ -59,4 +59,13 @@ class CustomerInfoDatabaseAdapterTest {
         //then
         assertThat(result, is(Optional.empty()));
     }
+
+    @Test
+    void shouldDeleteCustomerInfo() {
+        //given
+        var customerInfo = new CustomerInfo();
+        customerInfoDatabaseAdapter.delete(customerInfo);
+
+        verify(customerInfoRepoMock, times(1)).delete(customerInfo);
+    }
 }
