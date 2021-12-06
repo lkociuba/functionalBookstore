@@ -293,4 +293,20 @@ class CartServiceTest {
         assertThrows(NullPointerException.class, () ->
                 cartService.getCustomerInfo());
     }
+
+    @Test
+    void shouldDeleteCartItemAndCustomerInfoAfterOrderSave() {
+        //given
+        var customerInfo = new CustomerInfo();
+        given(getLoggedUserMock.getLoggedUser()).willReturn(user);
+        given(customerInfoDatabaseMock.findCustomerInfoByUser(anyLong())).willReturn(Optional.of(customerInfo));
+        given(cartItemDatabaseMock.findCartItemsByUser(anyLong())).willReturn(Optional.of(cartItemList));
+
+        //when
+        cartService.deleteCartItemAndCustomerInfoAfterOrderSave();
+
+        //then
+        verify(customerInfoDatabaseMock,times(1)).delete(customerInfo);
+        verify(cartItemDatabaseMock,times(2)).deleteById(anyLong());
+    }
 }
