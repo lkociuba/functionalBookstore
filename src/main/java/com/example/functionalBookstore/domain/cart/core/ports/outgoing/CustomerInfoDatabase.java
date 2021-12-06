@@ -8,4 +8,6 @@ public interface CustomerInfoDatabase {
     CustomerInfo save(CustomerInfo customerInfo);
 
     Optional<CustomerInfo> findCustomerInfoByUser(Long userId);
+
+    void delete(CustomerInfo customerInfo);
 }
