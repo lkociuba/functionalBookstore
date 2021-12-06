@@ -25,4 +25,9 @@ public class CustomerInfoDatabaseAdapter implements CustomerInfoDatabase {
                     return Optional.empty();
         }
     }
+
+    @Override
+    public void delete(CustomerInfo customerInfo) {
+        customerInfoRepository.delete(customerInfo);
+    }
 }
