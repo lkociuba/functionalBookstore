@@ -9,7 +9,6 @@ import com.example.functionalBookstore.domain.cart.core.ports.outgoing.CustomerI
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBookById;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-@RequiredArgsConstructor
 public class CartService implements
         GetLoggedUserCartItems, AddCartItem, DeleteCartItem, IncreaseCartItemQuantity,
         DecreaseCartItemQuantity, GetCartFinalAmount, AddCustomerInfo, GetCustomerInfo,
@@ -28,6 +26,14 @@ public class CartService implements
     private final GetLoggedUser getLoggedUser;
     private final GetBookById getBookById;
     private final CustomerInfoDatabase customerInfoDatabase;
+
+    public CartService(CartItemDatabase cartItemDatabase, GetLoggedUser getLoggedUser,
+                       GetBookById getBookById, CustomerInfoDatabase customerInfoDatabase) {
+        this.cartItemDatabase = cartItemDatabase;
+        this.getLoggedUser = getLoggedUser;
+        this.getBookById = getBookById;
+        this.customerInfoDatabase = customerInfoDatabase;
+    }
 
     @Override
     public List<CartItem> getLoggedUserCartItems() {
