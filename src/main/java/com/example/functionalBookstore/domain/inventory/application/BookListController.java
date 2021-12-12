@@ -1,6 +1,7 @@
 package com.example.functionalBookstore.domain.inventory.application;
 
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
+import com.example.functionalBookstore.domain.inventory.core.ports.incoming.GetBooksPaginatedAndSorted;
 import com.example.functionalBookstore.domain.inventory.core.ports.outgoing.BookDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookListController {
 
-    private final BookDatabase bookDatabase;
+    private final GetBooksPaginatedAndSorted getBooksPaginatedAndSorted;
 
     @GetMapping("/paginatedBookList")
     public String findPaginatedBookList(ModelMap model) {
@@ -33,7 +34,7 @@ public class BookListController {
 
         var pageSize = 5;
 
-        Optional<Page<Book>> page = bookDatabase.getBooksPaginatedAndSorted(
+        Optional<Page<Book>> page = getBooksPaginatedAndSorted.getBooksPaginatedAndSorted(
                 pageNumber, pageSize, sortField, sortDirection);
         List<Book> bookList = page.get().getContent();
 
