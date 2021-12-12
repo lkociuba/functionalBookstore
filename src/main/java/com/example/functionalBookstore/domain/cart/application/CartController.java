@@ -20,6 +20,7 @@ public class CartController {
     private final DeleteCartItem deleteCartItem;
     private final DecreaseCartItemQuantity decreaseCartItemQuantity;
     private final IncreaseCartItemQuantity increaseCartItemQuantity;
+    private final GetCustomerInfo getCustomerInfo;
 
     @GetMapping("/shoppingCart")
     public String showCart(ModelMap model) {
@@ -62,5 +63,13 @@ public class CartController {
     public String increaseCartItemQuantity(@PathVariable(value = "cartItemId") Long cartItemId, ModelMap model) {
         increaseCartItemQuantity.increaseCartItemQuantity(cartItemId);
         return "redirect:/shoppingCart";
+    }
+
+    @GetMapping("/shoppingCartSummary")
+    public String showCartSummary(ModelMap model) {
+        model.addAttribute("cart", getLoggedUserCartItems.getLoggedUserCartItems());
+        model.addAttribute("calculatedPrice", getCartFinalAmount.calculateCartFinalAmount());
+        model.addAttribute("customerInfo", getCustomerInfo.getCustomerInfo());
+        return "cartSummary";
     }
 }

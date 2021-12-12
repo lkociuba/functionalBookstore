@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <div th:replace="fragments/header :: header"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/menu :: menu"></div>
+
+<br>
+<br>
+
+
+<div class="customer">
+    <div class="col-md-6 col-md-offset-3">
+        <h3>Customer Information:</h3>
+        <ul>
+            <li>Name: <span th:utext="${customerInfo.customerName}"></span></li>
+            <li>Address: <span th:utext="${customerInfo.customerAddress}"></span></li>
+            <li>Email: <span th:utext="${customerInfo.customerEmail}"></span></li>
+            <li>Phone: <span th:utext="${customerInfo.customerPhone}"></span></li>
+        </ul>
+        <h3>Cart Summary:</h3>
+        <ul>
+            <li>Total Price:
+                <span class="total"
+                      th:utext="${#numbers.formatDecimal(calculatedPrice,1,2,'COMMA')}">
+               </span>
+            </li>
+        </ul>
+
+        <h2>Your chosen books</h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+            <tr th:each="cartItem  :  ${cart}">
+                <td th:text="${cartItem.book.name}"></td>
+                <td th:text="${#numbers.formatDecimal(cartItem.book.price,1,2,'COMMA')}"></td>
+                <td th:text="${cartItem.quantity}"></td>
+                <td th:text="${#numbers.formatDecimal(cartItem.getCalculatedCartItemPrice(),1,2,'COMMA')}"></td>
+            </tr>
+        </table>
+        <div>
+            <a class="btn btn-info" href="/saveOrder">Make Order</a>
+        </div>
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</div>
+
+
+</body>
+</html>
