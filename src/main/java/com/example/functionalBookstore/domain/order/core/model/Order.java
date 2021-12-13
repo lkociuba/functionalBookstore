@@ -1,5 +1,6 @@
 package com.example.functionalBookstore.domain.order.core.model;
 
+import com.example.functionalBookstore.domain.cart.core.model.CustomerInfo;
 import com.example.functionalBookstore.domain.user.core.model.User;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,15 +31,14 @@ public class Order {
 
     public Order(){}
 
-    public Order(User user, int orderNumber, BigDecimal calculatedPrice, String customerName,
-                 String customerAddress, String customerEmail, String customerPhone) {
+    public Order(User user, int orderNumber, BigDecimal calculatedPrice, CustomerInfo customerInfo) {
         this.user = user;
         this.orderNumber = orderNumber;
         this.calculatedPrice = calculatedPrice;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerEmail = customerEmail;
-        this.customerPhone = customerPhone;
+        this.customerName = customerInfo.getCustomerName();
+        this.customerAddress = customerInfo.getCustomerAddress();
+        this.customerEmail = customerInfo.getCustomerEmail();
+        this.customerPhone = customerInfo.getCustomerPhone();
     }
 
     public Long getId() {
