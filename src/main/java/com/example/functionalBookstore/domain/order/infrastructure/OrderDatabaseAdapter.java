@@ -21,4 +21,9 @@ public class OrderDatabaseAdapter implements OrderDatabase {
             return Optional.empty();
         }
     }
+
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
 }

@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface OrderDatabase {
     Optional<List<Order>> findAllOrders();
+
+    void save(Order order);
 }
