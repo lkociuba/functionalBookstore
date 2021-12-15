@@ -34,7 +34,8 @@ public class OrderService implements AddNewOrder, GetOrders {
                 .setCalculatedPrice(transformPriceToBigDecimal.apply(getCartFinalAmount.calculateCartFinalAmount()))
                 .setCustomerInfo(getCustomerInfo.getCustomerInfo());
 
-        orderRepository.save(addOrderCommand.getOrder());
+        var order = addOrderCommand.getOrder();
+        orderRepository.save(order);
 
 
     }
