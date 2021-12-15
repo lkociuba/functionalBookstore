@@ -7,6 +7,7 @@ import com.example.functionalBookstore.domain.order.core.ports.outgoing.OrderDat
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,12 @@ public class OrderService implements AddNewOrder, GetOrders {
 
     private int getMaxOrderNumber() {
         int maxOrderNumber = 0;
+        var orderList = orderDatabase.findAllOrders();
+        if (orderList.isEmpty()){
+            return maxOrderNumber;
+        }
 
+        maxOrderNumber = orderList.stream()
+                .max(Comparator.comparing(orders -> ));
     }
 }
