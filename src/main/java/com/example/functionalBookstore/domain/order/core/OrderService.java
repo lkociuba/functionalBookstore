@@ -69,12 +69,10 @@ public class OrderService implements AddNewOrder, GetOrders {
 
     private int newOrderNumber() {
         var orderList = this.getOrders();
-        if (orderList.isEmpty()) {
-            return 1;
-        }
+
         var maxOrderNumber = orderList.get().stream()
                 .max(Comparator.comparing(Order::getOrderNumber))
                 .map(Order::getOrderNumber);
-        return maxOrderNumber.get() + 1;
+        return maxOrderNumber.orElseGet(() -> 0) + 1;
     }
 }

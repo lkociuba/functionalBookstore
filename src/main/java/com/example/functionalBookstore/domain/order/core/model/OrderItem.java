@@ -21,6 +21,10 @@ public class OrderItem {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cartItem_id")
+    private CartItem cartItem;
+
     private BigDecimal price;
     private int quantity;
 
@@ -51,6 +55,14 @@ public class OrderItem {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public CartItem getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
     }
 
     public BigDecimal getPrice() {
