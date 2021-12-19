@@ -1,5 +1,6 @@
 package com.example.functionalBookstore.domain.order.core.model;
 
+import com.example.functionalBookstore.domain.cart.core.model.CartItem;
 import com.example.functionalBookstore.domain.inventory.core.model.Book;
 
 import javax.persistence.*;
@@ -25,11 +26,11 @@ public class OrderItem {
 
     public OrderItem(){}
 
-    public OrderItem(Order order, Book book) {
+    public OrderItem(Order order, CartItem cartItem) {
         this.order = order;
-        this.book = book;
-        this.price = book.getPrice();
-        this.quantity = book.getCartItem().getQuantity();
+        this.book = cartItem.getBook();
+        this.price = cartItem.getBook().getPrice();
+        this.quantity = cartItem.getQuantity();
     }
 
     public Long getId() {

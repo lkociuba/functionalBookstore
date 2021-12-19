@@ -5,15 +5,13 @@ import com.example.functionalBookstore.domain.cart.core.ports.incoming.DeleteCar
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetCartFinalAmount;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetCustomerInfo;
 import com.example.functionalBookstore.domain.cart.core.ports.incoming.GetLoggedUserCartItems;
-import com.example.functionalBookstore.domain.inventory.core.model.Book;
 import com.example.functionalBookstore.domain.order.core.model.AddOrderCommand;
 import com.example.functionalBookstore.domain.order.core.model.Order;
 import com.example.functionalBookstore.domain.order.core.model.OrderItem;
 import com.example.functionalBookstore.domain.order.core.ports.incoming.AddNewOrder;
 import com.example.functionalBookstore.domain.order.core.ports.incoming.GetOrders;
 import com.example.functionalBookstore.domain.order.core.ports.outgoing.OrderDatabase;
-import com.example.functionalBookstore.domain.order.infrastructure.OrderItemRepository;
-import com.example.functionalBookstore.domain.order.infrastructure.OrderRepository;
+import com.example.functionalBookstore.domain.order.core.ports.outgoing.OrderItemDatabase;
 import com.example.functionalBookstore.domain.user.core.ports.incoming.GetLoggedUser;
 import lombok.RequiredArgsConstructor;
 
@@ -30,15 +28,14 @@ public class OrderService implements AddNewOrder, GetOrders {
     private final OrderDatabase orderDatabase;
     private final GetCartFinalAmount getCartFinalAmount;
     private final GetCustomerInfo getCustomerInfo;
-    private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
+    private final OrderItemDatabase orderItemDatabase;
     private final GetLoggedUserCartItems getLoggedUserCartItems;
     private final DeleteCartItemAndCustomerInfoAfterOrderSave deleteCartItemAndCustomerInfoAfterOrderSave;
 
     @Override
     public void saveOrder() {
         var order = this.createNewOrder();
-        orderRepository.save(order);
+        orderDatabase.save(order);
 
         this.saveOrderItemsToOrder(order);
 
@@ -64,15 +61,14 @@ public class OrderService implements AddNewOrder, GetOrders {
 
     private void saveOrderItemsToOrder(Order order) {
         var loggedUserCartItems = getLoggedUserCartItems.getLoggedUserCartItems();
-        for (CartItem item : loggedUserCartItems) {
-            var book = item.getBook();
-            var orderItem = new OrderItem(order, book);
-            orderItemRepository.save(orderItem);
+        for (CartItem cartItem : loggedUserCartItems) {
+            var orderItem = new OrderItem(order, cartItem);
+            orderItemDatabase.save(orderItem);
         }
     }
 
     private int newOrderNumber() {
-        var orderList = orderDatabase.findAllOrders();
+        var orderList = this.getOrders();
         if (orderList.isEmpty()) {
             return 1;
         }
