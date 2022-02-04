@@ -7,6 +7,7 @@
 # myBookstore
 This is an e-commerce website to sell books. I used Java for domain layer, Thymeleaf for frontend and Spring Boot. 
 To connect to Database I used JPA. I tried to use Hexagonal architecture with DDD.
+! This project don't contain validation for POST requests. Better working project is: myBookstore (with MVC architecture).
 
 
 What functions to implement
@@ -46,4 +47,5 @@ To run this project:
 
 ```
 $ git clone https://github.com/lkociuba/functionalBookstore.git
+$ docker pull lukaszkociuba/functional-bookstore:v1.0.0
 ```
