@@ -47,5 +47,7 @@ To run this project:
 
 ```
 $ git clone https://github.com/lkociuba/functionalBookstore.git
+```
+```
 $ docker pull lukaszkociuba/functional-bookstore:v1.0.0
 ```
